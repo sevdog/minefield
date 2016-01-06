@@ -1,5 +1,5 @@
 <!-- 
-  The MIT License (MIT)
+	The MIT License (MIT)
 
 	Copyright (c) 2016 
 	
@@ -27,15 +27,23 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Rock Paper Scissor Lizard Spock</title>
+	<title>Mine Field</title>
 	<!-- Dev -->
 	<link href="./css/assets/angular-csp.css" type="text/css" rel="stylesheet">
 	<link href="./css/assets/bootstrap.min.css" type="text/css" rel="stylesheet">
 	<link href="./css/assets/font-awesome.min.css" type="text/css" rel="stylesheet">
+	<link href="./css/style.css" type="text/css" rel="stylesheet">
 	<!-- /Dev -->
 	<!-- Prod-css -->
 </head>
-<body>
+<body ng-app="minefield">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+				<field></field>
+			</div>
+		</div>
+	</div>
 	<!-- Dev -->
 	<script type="text/javascript" src="./js/assets/angular.min.js"></script>
 	<script type="text/javascript" src="./js/assets/angular-aria.min.js"></script>
@@ -44,6 +52,12 @@
 	<script type="text/javascript" src="./js/assets/angular-animate.min.js"></script>
 	<script type="text/javascript" src="./js/assets/angular-translate.min.js"></script>
 	<script type="text/javascript" src="./js/assets/angular-local-storage.min.js"></script>
+	<script type="text/javascript" src="./js/app.js"></script>
+	<script type="text/javascript" src="./js/i18n/it.js"></script>
+	<script type="text/javascript" src="./js/i18n/en.js"></script>
+	<script type="text/javascript" src="./js/components/field.js"></script>
+	<script type="text/javascript" src="./js/components/cell.js"></script>
+	<script type="text/javascript" src="./js/services/cellGenerator.js"></script>
 	<!-- /Dev -->
 	<!-- Prod-js -->
 </body>

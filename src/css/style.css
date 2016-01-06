@@ -1,0 +1,108 @@
+/*!
+ * The MIT License (MIT)
+ * Copyright (c) 2016 
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+.field-row {
+	width: 100%;
+	line-height: 0;
+	text-align: center;
+	background-color: #dbdbdb;
+}
+/* entire container, keeps perspective */
+cell {
+	display: inline-block;
+	perspective: 1000px;
+	width: 10%;
+}
+/* flip the pane when showed */
+cell.shown .cell-flipper {
+	transform: rotateY(180deg);
+}
+
+/* flip speed goes here */
+cell .cell-flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	position: relative;
+	width: 100%;
+	padding-top: 100%;
+}
+/* hide back of pane during swap */
+.cell-front,
+.cell-back {
+	backface-visibility: hidden;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: center;
+	border: 1px solid transparent;
+	font-weight: 600;
+}
+.cell-front:before,
+.cell-back:before {
+	content: ' ';
+	display: inline-block;
+	vertical-align: middle;
+	height: 100%;
+}
+
+/* front pane, placed above back */
+.cell-front {
+	z-index: 2;
+	transform: rotateY(0deg);
+	background-color: #b1b1b1;
+	border-color: #000000;
+}
+
+/* back, initially hidden pane */
+.cell-back {
+	z-index: 1;
+	transform: rotateY(180deg);
+	background-color: #dbdbdb;
+	border-color: #b1b1b1;
+}
+/* help color classes */
+.cell-help-1 {
+	color: #0000ff;
+}
+.cell-help-2 {
+	color: #008000;
+}
+.cell-help-3 {
+	color: #ff0000;
+}
+.cell-help-4 {
+	color: #ff0080;
+}
+.cell-help-5 {
+	color: #0080c0;
+}
+.cell-help-6 {
+	color: #ffff00;
+}
+.cell-help-7 {
+	color: #808080;
+}
+.cell-help-8 {
+	color: #ff80c0;
+}
