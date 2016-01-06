@@ -27,16 +27,15 @@
 			restrict: 'E',
 			scope: {},
 			controllerAs: 'field',
-			controller: ['mines', 'cellGenerator', FieldController],
+			controller: ['$scope', 'mines', 'cellManager', FieldController],
 			template: '<div class="field-row" ng-repeat="row in field.rows track by $index" ng-init="rowIdx = $index">' +
-					'<cell ng-repeat="value in row track by $index" col="$index" row="rowIdx" value="value"></cell>' +
+					'<cell ng-repeat="cell in row track by $index" col="$index" row="rowIdx" info="cell"></cell>' +
 				'</div>'
 		}
 	}
 	
-	function FieldController(mines, cellGenerator) {
-		//TODO
+	function FieldController($scope, mines, cellManager) {
 		var self = this;
-		self.rows = cellGenerator.createField();
+		self.rows = cellManager.createField();
 	};
 })(angular);

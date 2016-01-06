@@ -40,10 +40,13 @@
 
 		return array;
 	}
-	ng.module('minefield').factory('cellGenerator', ['rows', 'columns', 'mines', cellGenerator]);
-	function cellGenerator(rows, columns, mines) {
+	ng.module('minefield').factory('cellManager', ['rows', 'columns', 'mines', cellManager]);
+	function cellManager(rows, columns, mines) {
 		return {
-			createField: createField
+			field: [],
+			createField: createField,
+			propagateShow: propagateShow,
+			showAll: showAll
 		};
 		function createField() {
 			var rawCells = [],
@@ -66,24 +69,54 @@
 					--rowIdx;
 				}
 				// add a value for the cell
-				organized[rowIdx][organized[rowIdx].length] = cellValue;
+				organized[rowIdx][organized[rowIdx].length] = {
+					value: cellValue,
+					shown: false
+				};
 				return organized;
 			}, []);
 			// now set the correct values for the elements
 			for (var row = 0; row < rows; ++row) {
 				for (var col = 0; col < columns; ++col) {
-					if (organizedCells[row][col] >= 9) {
+					if (organizedCells[row][col].value >= 9) {
+						// set the mine flag
+						organizedCells[row][col].isMine = true;
 						// if found a mine, update neighbours counters
 						// the check are to avoid out of bounds
 						for (var rr = row == 0 ? row : row - 1; rr <= row + 1 && rr < rows; ++rr) {
 							for (var cc = col == 0 ? col : col - 1;  cc <= col + 1 && cc < columns; ++cc) {
-								++organizedCells[rr][cc];
+								++organizedCells[rr][cc].value;
 							}
 						}
 					}
 				}
 			}
+			this.field = organizedCells;
 			return organizedCells;
+		}
+		function propagateShow(row, col) {
+			var self = this;
+			for (var rr = row == 0 ? row : row - 1; rr <= row + 1 && rr < rows; ++rr) {
+				for (var cc = col == 0 ? col : col - 1;  cc <= col + 1 && cc < columns; ++cc) {
+					var cell = self.field[rr][cc];
+					if (!cell.isMine && !cell.shown) {
+						// if the cell is not shown and is not a mine show it
+						cell.shown = true;
+						if (cell.value == 0) {
+							// if it is a 0 propagate
+							self.propagateShow(rr,cc);
+						}
+					}
+				}
+			}
+		}
+		function showAll() {
+			var self = this;
+			for (var row = 0; row < rows; ++row) {
+				for (var col = 0; col < columns; ++col) {
+					self.field[row][col].shown = true;
+				}
+			}
 		}
 	}
 })(angular);

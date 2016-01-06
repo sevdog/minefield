@@ -41,5 +41,5 @@
 	ng.module('minefield').constant('crOwner', 'sevdog');
 	ng.module('minefield').constant('rows', 10);
 	ng.module('minefield').constant('columns', 10);
-	ng.module('minefield').constant('mines', 30);
+	ng.module('minefield').constant('mines', 10);
 })(angular);

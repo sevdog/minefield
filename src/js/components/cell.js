@@ -27,38 +27,64 @@
 			restrict: 'E',
 			scope: {
 				row: '=',
-				column: '=',
-				value: '='
+				col: '=',
+				info: '='
 			},
 			link: CellLink,
 			controllerAs: 'cell',
 			bindToController: true,
-			controller: CellController,
+			controller: ['$timeout', 'cellManager', CellController],
 			template: '<div class="cell-flipper">' +
-					'<div class="cell-front" ng-click="cell.show()"></div>' +
-					'<div class="cell-back">' +
-						'<i ng-if="cell.isMine" class="fa fa-bomb"></i>' +
-						'<i ng-if="!cell.isMine && cell.value == 0"></i>' +
-						'<i ng-if="!cell.isMine && cell.value != 0" ng-class="\'cell-help-\' + cell.value">{{:: cell.value }}</i>' +
+					'<button type="button" class="btn btn-warning cell-front" ng-click="cell.show()"></button>' +
+					'<div class="btn btn-default cell-back">' +
+						'<i ng-if="cell.info.isMine" class="fa fa-bomb"></i>' +
+						'<i ng-if="!cell.info.isMine && cell.info.value == 0"></i>' +
+						'<i ng-if="!cell.info.isMine && cell.info.value != 0" ng-class="\'cell-help-\' + cell.info.value">{{:: cell.info.value }}</i>' +
 					'</div>' +
 				'</div>'
 		}
 	}
 	function CellLink(scope, element) {
-		scope.$watch('cell.shown', function(newVal, oldVal) {
+		scope.$watch('cell.info.shown', function(newVal, oldVal) {
 			if (newVal) {
-				element.addClass('shown');
+				// change class of element and remove tabindex
+				element.addClass('shown').find('button').attr('tabindex', '-1');
+			}
+		});
+		scope.$watch('cell.info.exploded', function(newVal, oldVal) {
+			// change class of element
+			if (newVal) {
+				element.addClass('exploded');
+				ng.element(element[0].querySelector('.cell-back')).removeClass('btn-default').addClass('btn-danger');
+			} else {
+				element.removeClass('exploded');
 			}
 		});
 	}
 	
-	function CellController() {
-		var self = this;
-		self.isMine = self.value >= 9;
+	function CellController($timeout, cellManager) {
+		var self = this,
+			info = self.info;
 		self.show = showCell;
 		
 		function showCell() {
-			self.shown = true;
+			// first show cell
+			info.shown = true;
+			if (!info.isMine && info.value == 0) {
+				// if is not a mine propagate the click to near cells
+				cellManager.propagateShow(self.row, self.col);
+			}
+			if (info.isMine) {
+				// mine explosion
+				$timeout(function() {
+					info.exploded = true;
+					$timeout(function() {
+						info.exploded = false;
+						// show all after explosion
+						cellManager.showAll();
+					}, 1000);
+				}, 600);
+			}
 		}
 	};
 })(angular);
