@@ -21,24 +21,34 @@
  * SOFTWARE.
  */
 (function(ng) {
-	// module definition
-	ng.module('minefield', ['ngAnimate', 'ngTouch', 'ngAria', 'pascalprecht.translate', 'LocalStorageModule']);
-	// configure providers
-	ng.module('minefield').config(['$translateProvider', 'localStorageServiceProvider', configProviders]);
-	function configProviders($translateProvider, localStorageServiceProvider) {
-		$translateProvider.translations('it', MSG_IT)
-			.translations('en', MSG_EN)
-			.determinePreferredLanguage()
-			.fallbackLanguage('en');
-		localStorageServiceProvider
-			.setStorageType('localStorage')
-			.setPrefix('minefield');
+	ng.module('minefield').directive('settings', cellDirective);
+	function cellDirective() {
+		return {
+			restrict: 'E',
+			controllerAs: 'stg',
+			controller: ['$scope', 'cellManager', SettingsController],
+			template: '<div class="row">' +
+					'<div class="col-xs-6 col-sm-4">' +
+						'<label>{{:: "mines" | translate }}</label>' +
+						'<input class="form-control" type="number" ng-model="stg.values.mines" step="1">' +
+					'</div>' +
+					'<div class="col-xs-6 col-sm-8">' +
+						'<button type="button" class="btn btn-primary" ng-click="stg.play()">' +
+							'<i class="fa fa-play"></i>' +
+						'</button>' +
+					'</div>' +
+				'</div>'
+		}
 	}
-	// define constants
-	ng.module('minefield').constant('version', '0.1.0');
-	ng.module('minefield').constant('crYearFrom', '2016');
-	ng.module('minefield').constant('crYearTo', '');
-	ng.module('minefield').constant('crOwner', 'sevdog');
-	ng.module('minefield').constant('rows', 10);
-	ng.module('minefield').constant('columns', 10);
+	
+	function SettingsController($scope, cellManager) {
+		var self = this;
+		self.values = cellManager.shared;
+		
+		self.play = playGame;
+		
+		function playGame() {
+			cellManager.reload();
+		}
+	};
 })(angular);

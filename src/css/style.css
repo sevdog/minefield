@@ -20,6 +20,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+field {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	width: 90%;
+	display: block;
+}
+settings {
+	width: 90%;
+}
 .field-row {
 	width: 100%;
 	line-height: 0;
@@ -151,4 +160,22 @@ cell.exploded .cell-back > i{
 }
 .cell-help-8 {
 	color: #808080;
+}
+@media (min-width: 768px) {
+	field,
+	settings {
+		width: 80%;
+	}
+}
+@media (min-width: 992px) {
+	field,
+	settings {
+		width: 75%;
+	}
+}
+@media (min-width: 1200px) {
+	field,
+	settings {
+		width: 60%;
+	}
 }

@@ -27,15 +27,23 @@
 			restrict: 'E',
 			scope: {},
 			controllerAs: 'field',
-			controller: ['$scope', 'mines', 'cellManager', FieldController],
-			template: '<div class="field-row" ng-repeat="row in field.rows track by $index" ng-init="rowIdx = $index">' +
-					'<cell ng-repeat="cell in row track by $index" col="$index" row="rowIdx" info="cell"></cell>' +
+			controller: ['$scope', 'cellManager', FieldController],
+			template: '<div class="field-row" ng-repeat="row in field.rows" ng-init="rowIdx = $index">' +
+					'<cell ng-repeat="cell in row" col="$index" row="rowIdx" info="cell"></cell>' +
 				'</div>'
 		}
 	}
 	
-	function FieldController($scope, mines, cellManager) {
+	function FieldController($scope, cellManager) {
 		var self = this;
 		self.rows = cellManager.createField();
+		self.info = cellManager.shared;
+		$scope.$watch('field.info.reload', function(newVal, oldVal) {
+			if (newVal) {
+				// trigger the reset
+				self.rows = cellManager.createField();
+				cellManager.shared.reload = false;
+			}
+		});
 	};
 })(angular);

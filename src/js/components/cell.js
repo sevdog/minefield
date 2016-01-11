@@ -68,6 +68,10 @@
 		self.show = showCell;
 		
 		function showCell() {
+			if (cellManager.shared.lost) {
+				// if the game is already lost don't do nothing
+				return;
+			}
 			// first show cell
 			info.shown = true;
 			if (!info.isMine && info.value == 0) {
@@ -75,6 +79,7 @@
 				cellManager.propagateShow(self.row, self.col);
 			}
 			if (info.isMine) {
+				cellManager.shared.lost = true;
 				// mine explosion
 				$timeout(function() {
 					info.exploded = true;

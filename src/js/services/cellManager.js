@@ -40,13 +40,20 @@
 
 		return array;
 	}
-	ng.module('minefield').factory('cellManager', ['rows', 'columns', 'mines', cellManager]);
-	function cellManager(rows, columns, mines) {
+	ng.module('minefield').factory('cellManager', ['rows', 'columns', cellManager]);
+	function cellManager(rows, columns) {
 		return {
 			field: [],
 			createField: createField,
 			propagateShow: propagateShow,
-			showAll: showAll
+			showAll: showAll,
+			reload: reloadField,
+			shared: {
+				mines: 10,
+				reload: false,
+				lost: false,
+				win: false,
+			}
 		};
 		function createField() {
 			var rawCells = [],
@@ -54,7 +61,7 @@
 			// initialize cells
 			for (var c = 0; c < totalCell; ++c) {
 				// add a raw cell with counter value 9 only for mines elements
-				rawCells[rawCells.length] = c < mines ? 9 : 0;
+				rawCells[rawCells.length] = c < this.shared.mines ? 9 : 0;
 			}
 			// shuffle cells
 			rawCells = shuffle(rawCells);
@@ -117,6 +124,12 @@
 					self.field[row][col].shown = true;
 				}
 			}
+		}
+		function reloadField() {
+			var self = this;
+			self.win = false;
+			self.lost = false;
+			self.shared.reload = true;
 		}
 	}
 })(angular);
