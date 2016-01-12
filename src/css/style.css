@@ -26,8 +26,22 @@ field {
 	width: 90%;
 	display: block;
 }
+copy-right > footer {
+	padding-right: 15px;
+}
 settings {
+	margin-top: 5px;
 	width: 90%;
+}
+settings .control-label {
+	margin-bottom: 0;
+	vertical-align: middle;
+	display: inline-block;
+}
+settings .form-control {
+	vertical-align: middle;
+	display: inline-block;
+	width: auto;
 }
 .field-row {
 	width: 100%;
@@ -113,13 +127,14 @@ cell .cell-flipper {
 	transform: rotateY(180deg);
 	border-radius: 0;
 	cursor: default;
+	border-color: #dedede
 }
 .cell-back > i {
 	-webkit-transition: font-size 1s ease-in-out;
 	transition: font-size 1s ease-in-out;
 	font-size: 1em;
 }
-cell.exploded .cell-back > i{
+cell.exploding .cell-back > i{
 	font-size: 2em;
 }
 .cell-back:hover,

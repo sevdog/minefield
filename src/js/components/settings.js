@@ -28,13 +28,11 @@
 			controllerAs: 'stg',
 			controller: ['$scope', 'cellManager', SettingsController],
 			template: '<div class="row">' +
-					'<div class="col-xs-6 col-sm-4">' +
-						'<label>{{:: "mines" | translate }}</label>' +
-						'<input class="form-control" type="number" ng-model="stg.values.mines" step="1">' +
-					'</div>' +
-					'<div class="col-xs-6 col-sm-8">' +
+					'<div class="col-xs-12">' +
+						'<label class="control-label">{{:: "mines" | translate }}</label> ' +
+						'<input class="form-control" type="number" ng-model="stg.values.mines" min="1" max="99" step="1"> ' +
 						'<button type="button" class="btn btn-primary" ng-click="stg.play()">' +
-							'<i class="fa fa-play"></i>' +
+							'<i class="fa fa-refresh"></i>' +
 						'</button>' +
 					'</div>' +
 				'</div>'

@@ -35,8 +35,10 @@
 			bindToController: true,
 			controller: ['$timeout', 'cellManager', CellController],
 			template: '<div class="cell-flipper">' +
-					'<button type="button" class="btn btn-warning cell-front" ng-click="cell.show()"></button>' +
-					'<div class="btn btn-default cell-back">' +
+					'<button type="button" class="btn btn-warning cell-front" ng-click="cell.show()" ng-right-click="cell.flag()">' +
+						'<i class="fa fa-flag" ng-show="cell.info.flagged"></i>' +
+					'</button>' +
+					'<div class="btn cell-back" ng-class="{\'btn-danger\': cell.info.isMine && cell.info.exploded ,\'btn-success\': cell.info.flagged && cell.info.isMine}">' +
 						'<i ng-if="cell.info.isMine" class="fa fa-bomb"></i>' +
 						'<i ng-if="!cell.info.isMine && cell.info.value == 0"></i>' +
 						'<i ng-if="!cell.info.isMine && cell.info.value != 0" ng-class="\'cell-help-\' + cell.info.value">{{:: cell.info.value }}</i>' +
@@ -51,13 +53,12 @@
 				element.addClass('shown').find('button').attr('tabindex', '-1');
 			}
 		});
-		scope.$watch('cell.info.exploded', function(newVal, oldVal) {
+		scope.$watch('cell.info.exploding', function(newVal, oldVal) {
 			// change class of element
 			if (newVal) {
-				element.addClass('exploded');
-				ng.element(element[0].querySelector('.cell-back')).removeClass('btn-default').addClass('btn-danger');
+				element.addClass('exploding');
 			} else {
-				element.removeClass('exploded');
+				element.removeClass('exploding');
 			}
 		});
 	}
@@ -66,10 +67,11 @@
 		var self = this,
 			info = self.info;
 		self.show = showCell;
+		self.flag = flagCell;
 		
 		function showCell() {
-			if (cellManager.shared.lost) {
-				// if the game is already lost don't do nothing
+			if (cellManager.shared.lost || cellManager.shared.win || info.flagged) {
+				// if the game is already lost or win don't do nothing
 				return;
 			}
 			// first show cell
@@ -82,14 +84,23 @@
 				cellManager.shared.lost = true;
 				// mine explosion
 				$timeout(function() {
-					info.exploded = true;
+					info.exploding = true;
 					$timeout(function() {
-						info.exploded = false;
+						info.exploding = false;
+						info.exploded = true;
 						// show all after explosion
 						cellManager.showAll();
 					}, 1000);
 				}, 600);
 			}
+		}
+		
+		function flagCell() {
+			if (cellManager.shared.lost || cellManager.shared.win) {
+				// if the game is already lost or win don't do nothing
+				return;
+			}
+			info.flagged = !info.flagged;
 		}
 	};
 })(angular);

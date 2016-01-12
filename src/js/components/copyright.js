@@ -20,7 +20,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-var MSG_EN = {
-	'version': 'version',
-	'mines': 'Mines'
-};
+(function(ng) {
+	// define copyright directive
+	angular.module('minefield').directive('copyRight', copyRightDirective);
+	function copyRightDirective() {
+		return {
+			restrict: 'E',
+			scope: {},
+			controllerAs: 'cpr',
+			controller: ['version', 'crYearTo', 'crYearFrom', 'crOwner', copyRightController],
+			template: '<footer class="text-right text-muted">' +
+				'<h5>{{:: \'version\' | translate }} {{:: cpr.version }}</h5>' +
+				'<i class="fa fa-copyright"></i> {{:: cpr.year }} {{ cpr.owner }}' +
+				'</footer>'
+		}
+	}
+	// define controller
+	function copyRightController(version, crYearTo, crYearFrom, crOwner) {
+		var self = this;
+		self.version = version;
+		self.year = crYearFrom + (crYearTo ? '-' + crYearTo : '');
+		self.owner = crOwner;
+	}
+})(angular);

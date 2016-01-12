@@ -10,4 +10,4 @@ dist/js/assets.js
 dist/fonts/**
 node_modules/**
 test/helpers/angular-mocks.js
-/dist/
+

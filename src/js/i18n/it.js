@@ -21,5 +21,6 @@
  * SOFTWARE.
  */
 var MSG_IT = {
-	'version': 'versione'
+	'version': 'versione',
+	'mines': 'Mine'
 };

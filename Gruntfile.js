@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 						+ ' * SOFTWARE.. \n */\n'
 				},
 				src: ['src/js/i18n/*.js', 'src/js/app.js', 'src/js/components/*.js',
-				      'src/js/app/services/*.js'],
+				      'src/js/services/*.js'],
 				dest: 'dist/js/<%= pkg.name %>.js'
 			},
 			pack: {
@@ -83,11 +83,11 @@ module.exports = function(grunt) {
 					}, {
 						match: '<!-- Prod-js -->',
 						replacement: '<script type="text/javascript" src="./js/assets.js"></script>\n' +
-							'	<script type="text/javascript" src="./js/rspls.js"></script>'
+							'	<script type="text/javascript" src="./js/<%= pkg.name %>.js"></script>'
 					}, {
 						match: '<!-- Prod-css -->',
 						replacement: '<link href="./css/assets.css" type="text/css" rel="stylesheet">\n' +
-							'	<link href="./css/rspls.css" type="text/css" rel="stylesheet">'
+							'	<link href="./css/<%= pkg.name %>.css" type="text/css" rel="stylesheet">'
 					}],
 					usePrefix: false
 				},

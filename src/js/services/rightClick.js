@@ -20,7 +20,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-var MSG_EN = {
-	'version': 'version',
-	'mines': 'Mines'
-};
+(function(ng) {
+	ng.module('minefield').directive('ngRightClick', ['$parse', rightClickDirective]);
+	function rightClickDirective($parse) {
+		return function(scope, element, attrs) {
+			var fn = $parse(attrs.ngRightClick);
+			element.bind('contextmenu', function(event) {
+				scope.$apply(function() {
+					event.preventDefault();
+					fn(scope, {$event:event});
+				});
+			});
+		};
+	}
+})(angular);

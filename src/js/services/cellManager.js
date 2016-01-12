@@ -78,7 +78,8 @@
 				// add a value for the cell
 				organized[rowIdx][organized[rowIdx].length] = {
 					value: cellValue,
-					shown: false
+					shown: false,
+					flagged: false
 				};
 				return organized;
 			}, []);
@@ -106,7 +107,7 @@
 			for (var rr = row == 0 ? row : row - 1; rr <= row + 1 && rr < rows; ++rr) {
 				for (var cc = col == 0 ? col : col - 1;  cc <= col + 1 && cc < columns; ++cc) {
 					var cell = self.field[rr][cc];
-					if (!cell.isMine && !cell.shown) {
+					if (!cell.isMine && !cell.shown && ! cell.flagged) {
 						// if the cell is not shown and is not a mine show it
 						cell.shown = true;
 						if (cell.value == 0) {
@@ -126,10 +127,11 @@
 			}
 		}
 		function reloadField() {
-			var self = this;
-			self.win = false;
-			self.lost = false;
-			self.shared.reload = true;
+			var self = this,
+				shared = self.shared;
+			shared.win = false;
+			shared.lost = false;
+			shared.reload = true;
 		}
 	}
 })(angular);

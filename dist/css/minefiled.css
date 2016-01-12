@@ -1,0 +1,22 @@
+/*!
+ * The MIT License (MIT)
+ * Copyright (c) 2016 
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */.field-row:first-child,.field-row:first-child cell:first-child .cell-back,.field-row:first-child cell:first-child .cell-front{border-top-left-radius:4px}.field-row:first-child,.field-row:first-child cell:last-child .cell-back,.field-row:first-child cell:last-child .cell-front{border-top-right-radius:4px}.field-row:last-child,.field-row:last-child cell:first-child .cell-back,.field-row:last-child cell:first-child .cell-front{border-bottom-left-radius:4px}.field-row:last-child,.field-row:last-child cell:last-child .cell-back,.field-row:last-child cell:last-child .cell-front{border-bottom-right-radius:4px}.cell-back:before,.cell-front:before,settings .control-label,settings .form-control{vertical-align:middle;display:inline-block}field{padding-top:20px;padding-bottom:20px;width:90%;display:block}copy-right>footer{padding-right:15px}settings{margin-top:5px;width:90%}settings .control-label{margin-bottom:0}settings .form-control{width:auto}.field-row{width:100%;line-height:0;text-align:center}cell{display:inline-block;perspective:1000px;width:10%}cell.shown .cell-flipper{-webkit-transform:rotateY(180deg);transform:rotateY(180deg)}cell .cell-flipper{-webkit-transition:.6s;transition:.6s;transform-style:preserve-3d;position:relative;width:100%;padding-top:100%}.cell-back,.cell-front{backface-visibility:hidden;width:100%;height:100%;position:absolute;top:0;left:0;font-weight:600}.cell-back:before,.cell-front:before{content:' ';height:100%}.cell-front{z-index:2;-webkit-transform:rotateY(0);transform:rotateY(0);border-radius:0}.cell-back{z-index:1;-webkit-transform:rotateY(180deg);transform:rotateY(180deg);border-radius:0;cursor:default;border-color:#dedede}.cell-back>i{-webkit-transition:font-size 1s ease-in-out;transition:font-size 1s ease-in-out;font-size:1em}cell.exploding .cell-back>i{font-size:2em}.cell-back:active,.cell-back:active:hover,.cell-back:focus,.cell-back:hover{background-color:#fff;border-color:#ccc}.cell-back.btn-danger:active,.cell-back.btn-danger:active:hover,.cell-back.btn-danger:focus,.cell-back.btn-danger:hover{background-color:#d9534f;border-color:#d43f3a}.cell-help-1{color:#00f}.cell-help-2{color:green}.cell-help-3{color:red}.cell-help-4{color:navy}.cell-help-5{color:maroon}.cell-help-6{color:teal}.cell-help-7{color:#000}.cell-help-8{color:grey}@media (min-width:768px){field,settings{width:80%}}@media (min-width:992px){field,settings{width:75%}}@media (min-width:1200px){field,settings{width:60%}}
